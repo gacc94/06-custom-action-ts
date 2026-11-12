@@ -73,7 +73,10 @@ pnpm install
 # 2. Run unit tests with Vitest
 pnpm test
 
-# 3. Static code analysis and linting with ESLint 9
+# 3. Generate unit test coverage report
+pnpm run test:coverage
+
+# 4. Static code analysis and linting with ESLint 9
 pnpm run lint
 
 # 4. Strict TypeScript type checking

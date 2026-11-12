@@ -6,8 +6,10 @@ export default defineConfig({
         include: ['src/**/*.test.ts'],
         globals: true,
         coverage: {
+            provider: 'v8',
             reporter: ['text', 'json', 'html'],
-            exclude: ['dist/**', 'node_modules/**']
+            include: ['src/**/*.ts'],
+            exclude: ['src/**/*.test.ts', 'dist/**', 'node_modules/**']
         }
     }
 });

@@ -3,9 +3,7 @@
         "target": "ES2022",
         "module": "NodeNext",
         "moduleResolution": "NodeNext",
-        "lib": [
-            "ES2022"
-        ],
+        "lib": ["ES2022"],
         "strict": true,
         "esModuleInterop": true,
         "skipLibCheck": true,
@@ -13,10 +11,6 @@
         "rootDir": "./src",
         "outDir": "./dist"
     },
-    "include": [
-        "src/**/*"
-    ],
-    "exclude": [
-        "src/**/*.test.ts"
-    ]
+    "include": ["src/**/*"],
+    "exclude": ["src/**/*.test.ts"]
 }
