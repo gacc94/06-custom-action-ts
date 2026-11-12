@@ -1,0 +1,30 @@
+name: 'Custom TypeScript Greeter'
+description: 'Enterprise-grade Custom Action built with TypeScript and Node.js using @actions/core'
+author: 'Gustavo Caqui'
+
+inputs:
+    username:
+        description: 'Name of the user triggering the pipeline'
+        required: false
+    usuario:
+        description: 'Legacy alias for username'
+        required: false
+    role:
+        description: 'Role or execution environment profile'
+        required: false
+        default: 'DevOps Engineer'
+    rol:
+        description: 'Legacy alias for role'
+        required: false
+
+outputs:
+    result:
+        description: 'Consolidated execution summary message'
+    resultado:
+        description: 'Legacy alias for result output'
+    timestamp:
+        description: 'ISO 8601 execution timestamp'
+
+runs:
+    using: 'node20'
+    main: 'dist/index.js'

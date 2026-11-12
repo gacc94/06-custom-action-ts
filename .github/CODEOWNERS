@@ -1,0 +1,7 @@
+# Global code review and ownership rules
+* @gustavocaqui
+
+# Strict protection for compiled artifacts and execution contracts
+/action.yml @gustavocaqui
+/dist/ @gustavocaqui
+/.github/workflows/ @gustavocaqui

@@ -1,0 +1,29 @@
+# Package dependencies
+node_modules/
+
+# Debug logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Test coverage and reports
+coverage/
+.nyc_output/
+
+# TypeScript incremental build cache
+*.tsbuildinfo
+
+# Environment files and secrets
+.env
+.env.local
+.env.*.local
+
+# Operating system and IDE files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
