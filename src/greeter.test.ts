@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { generateResultMessage } from './greeter.js';
+import { escapeHtml, generateResultMessage } from './greeter.js';
 
 describe('Greeter Domain Logic', () => {
     it('correctly generates the formatted result message with the provided parameters', () => {
@@ -24,5 +24,11 @@ describe('Greeter Domain Logic', () => {
 
         expect(result).toContain('DevOpsBot (Automation Runner)');
         expect(result).toContain('organization/pipeline');
+    });
+
+    it('escapes HTML special characters safely for Step Summary rendering', () => {
+        expect(escapeHtml('<script>alert("xss" & \'test\')</script>')).toBe(
+            '&lt;script&gt;alert(&quot;xss&quot; &amp; &#39;test&#39;)&lt;/script&gt;'
+        );
     });
 });

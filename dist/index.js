@@ -24539,6 +24539,16 @@ var context2 = new Context();
 function generateResultMessage(options) {
   return `Processing completed for ${options.username} (${options.role}) in ${options.owner}/${options.repo}`;
 }
+var HTML_ESCAPE_MAP = {
+  "&": "&amp;",
+  "<": "&lt;",
+  ">": "&gt;",
+  '"': "&quot;",
+  "'": "&#39;"
+};
+function escapeHtml(value) {
+  return value.replace(/[&<>"']/g, (char) => HTML_ESCAPE_MAP[char]);
+}
 
 // src/index.ts
 async function run() {
@@ -24554,24 +24564,39 @@ async function run() {
     } catch {
     }
     const ref = context2.ref ?? "refs/heads/main";
-    const sha = (context2.sha ?? "0000000000000000000000000000000000000000").substring(0, 7);
+    const fullSha = context2.sha ?? "0000000000000000000000000000000000000000";
+    const sha = fullSha.substring(0, 7);
+    const serverUrl = process.env.GITHUB_SERVER_URL || "https://github.com";
+    const repoUrl = `${serverUrl}/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}`;
+    const commitUrl = `${repoUrl}/commit/${encodeURIComponent(fullSha)}`;
     info(`[CUSTOM ACTION] Executing on repository: ${owner}/${repo} on branch ${ref} (commit ${sha})`);
     const timestamp = (/* @__PURE__ */ new Date()).toISOString();
     const resultMessage = generateResultMessage({ username, role, owner, repo });
     setOutput("result", resultMessage);
     setOutput("resultado", resultMessage);
     setOutput("timestamp", timestamp);
-    await summary.addHeading("\u{1F680} Custom TypeScript Action Report").addTable([
+    const outputsJson = JSON.stringify({ result: resultMessage, resultado: resultMessage, timestamp }, null, 4);
+    await summary.addHeading("\u{1F680} Custom TypeScript Action Report", 2).addRaw(`
+
+> [!TIP]
+> **Result:** ${escapeHtml(resultMessage)}
+
+`).addTable([
       [
-        { data: "Field", header: true },
+        { data: "Metadata", header: true },
         { data: "Value", header: true }
       ],
-      ["User", username],
-      ["Role", role],
-      ["Repository", `${owner}/${repo}`],
-      ["Commit", sha],
-      ["Timestamp", timestamp]
-    ]).addQuote("Action bundled with esbuild and executed directly on the Node.js runtime.").write();
+      ["Status", "\u2705 <strong>Succeeded</strong>"],
+      ["User", `<strong>${escapeHtml(username)}</strong>`],
+      ["Role", `<code>${escapeHtml(role)}</code>`],
+      ["Repository", `<a href="${repoUrl}">${escapeHtml(owner)}/${escapeHtml(repo)}</a>`],
+      ["Branch / Ref", `<code>${escapeHtml(ref)}</code>`],
+      ["Commit", `<a href="${commitUrl}"><code>${escapeHtml(sha)}</code></a>`],
+      ["Node Runtime", `<code>${escapeHtml(process.version)}</code>`],
+      ["Timestamp (UTC)", `<code>${escapeHtml(timestamp)}</code>`]
+    ]).addDetails("\u{1F4E6} Raw Action Outputs (JSON)", `<pre><code>${escapeHtml(outputsJson)}</code></pre>`).addSeparator().addQuote(
+      "Action bundled with esbuild (--target=node22) and executed on the GitHub Actions Node.js runtime."
+    ).write();
     info("[CUSTOM ACTION] Completed successfully.");
   } catch (error2) {
     if (error2 instanceof Error) {

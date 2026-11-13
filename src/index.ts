@@ -1,7 +1,7 @@
 import { getInput, info, setFailed, setOutput, summary } from '@actions/core';
 import { context } from '@actions/github';
 
-import { generateResultMessage } from './greeter.js';
+import { escapeHtml, generateResultMessage } from './greeter.js';
 
 async function run(): Promise<void> {
     try {
@@ -21,7 +21,11 @@ async function run(): Promise<void> {
             // Fallback when GITHUB_REPOSITORY is undefined during local execution
         }
         const ref = context.ref ?? 'refs/heads/main';
-        const sha = (context.sha ?? '0000000000000000000000000000000000000000').substring(0, 7);
+        const fullSha = context.sha ?? '0000000000000000000000000000000000000000';
+        const sha = fullSha.substring(0, 7);
+        const serverUrl = process.env.GITHUB_SERVER_URL ?? 'https://github.com';
+        const repoUrl = `${serverUrl}/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}`;
+        const commitUrl = `${repoUrl}/commit/${encodeURIComponent(fullSha)}`;
 
         info(`[CUSTOM ACTION] Executing on repository: ${owner}/${repo} on branch ${ref} (commit ${sha})`);
 
@@ -33,21 +37,31 @@ async function run(): Promise<void> {
         setOutput('resultado', resultMessage);
         setOutput('timestamp', timestamp);
 
-        // 4. Render Markdown report in GitHub Actions Step Summary
+        // 4. Render rich Markdown/HTML report in GitHub Actions Step Summary
+        const outputsJson = JSON.stringify({ result: resultMessage, resultado: resultMessage, timestamp }, null, 4);
+
         await summary
-            .addHeading('🚀 Custom TypeScript Action Report')
+            .addHeading('🚀 Custom TypeScript Action Report', 2)
+            .addRaw(`\n\n> [!TIP]\n> **Result:** ${escapeHtml(resultMessage)}\n\n`)
             .addTable([
                 [
-                    { data: 'Field', header: true },
+                    { data: 'Metadata', header: true },
                     { data: 'Value', header: true }
                 ],
-                ['User', username],
-                ['Role', role],
-                ['Repository', `${owner}/${repo}`],
-                ['Commit', sha],
-                ['Timestamp', timestamp]
+                ['Status', '✅ <strong>Succeeded</strong>'],
+                ['User', `<strong>${escapeHtml(username)}</strong>`],
+                ['Role', `<code>${escapeHtml(role)}</code>`],
+                ['Repository', `<a href="${repoUrl}">${escapeHtml(owner)}/${escapeHtml(repo)}</a>`],
+                ['Branch / Ref', `<code>${escapeHtml(ref)}</code>`],
+                ['Commit', `<a href="${commitUrl}"><code>${escapeHtml(sha)}</code></a>`],
+                ['Node Runtime', `<code>${escapeHtml(process.version)}</code>`],
+                ['Timestamp (UTC)', `<code>${escapeHtml(timestamp)}</code>`]
             ])
-            .addQuote('Action bundled with esbuild and executed directly on the Node.js runtime.')
+            .addDetails('📦 Raw Action Outputs (JSON)', `<pre><code>${escapeHtml(outputsJson)}</code></pre>`)
+            .addSeparator()
+            .addQuote(
+                'Action bundled with esbuild (--target=node22) and executed on the GitHub Actions Node.js runtime.'
+            )
             .write();
 
         info('[CUSTOM ACTION] Completed successfully.');
