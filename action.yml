@@ -26,5 +26,6 @@ outputs:
         description: 'ISO 8601 execution timestamp'
 
 runs:
-    using: 'node20'
+    # GitHub Actions runners removed node20 and skipped node22; node24 is the active LTS runtime for Node >=22 bundles
+    using: 'node24'
     main: 'dist/index.js'

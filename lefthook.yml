@@ -1,0 +1,27 @@
+pre-commit:
+    jobs:
+        - name: lint and format
+          group:
+              piped: true
+              jobs:
+                  - name: eslint
+                    glob: '*.{js,mjs,cjs,ts,mts}'
+                    exclude:
+                        - 'dist/**'
+                        - 'coverage/**'
+                    run: pnpm exec eslint --fix {staged_files}
+                    stage_fixed: true
+
+                  - name: prettier
+                    glob: '*.{js,mjs,cjs,ts,mts,json,md,yml,yaml}'
+                    exclude:
+                        - 'dist/**'
+                        - 'coverage/**'
+                        - 'pnpm-lock.yaml'
+                    run: pnpm exec prettier --write {staged_files}
+                    stage_fixed: true
+
+commit-msg:
+    jobs:
+        - name: commitlint
+          run: pnpm exec commitlint --edit {1}

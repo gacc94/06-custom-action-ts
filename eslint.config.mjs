@@ -12,7 +12,7 @@ export default defineConfig([
     prettierConfig,
     {
         name: 'Import Sorting',
-        files: ['**/*.{js,mjs,cjs,ts}'],
+        files: ['**/*.{js,mjs,cjs,ts,mts}'],
         plugins: {
             'simple-import-sort': simpleImportSort
         },

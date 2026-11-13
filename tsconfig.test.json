@@ -1,23 +1,15 @@
 {
     "compilerOptions": {
-        "target": "ES2022",
+        "target": "ES2024",
         "module": "NodeNext",
         "moduleResolution": "NodeNext",
-        "lib": [
-            "ES2022"
-        ],
+        "lib": ["ES2024"],
         "strict": true,
         "esModuleInterop": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
         "rootDir": "./",
-        "types": [
-            "node",
-            "vitest/globals"
-        ]
+        "types": ["node", "vitest/globals"]
     },
-    "include": [
-        "src/**/*.test.ts",
-        "vitest.config.mts"
-    ]
+    "include": ["src/**/*.test.ts", "vitest.config.mts", "commitlint.config.ts"]
 }

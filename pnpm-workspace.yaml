@@ -1,6 +1,10 @@
 packages:
-  - '.'
+    - '.'
 
 # Supply-chain security policy: only explicitly authorized packages may run lifecycle scripts
 allowBuilds:
-  esbuild: true
+    esbuild: true
+    lefthook: true
+
+minimumReleaseAgeExclude:
+    - prettier@3.10.1

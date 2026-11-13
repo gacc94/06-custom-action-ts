@@ -1,14 +1,16 @@
 # 🛡️ Security Policy
 
 ## Supported Versions
+
 Security updates and patches are actively provided for the following versions:
 
 | Version | Supported |
-| :--- | :---: |
-| 1.x | ✅ |
-| < 1.0 | ❌ |
+| :------ | :-------: |
+| 1.x     |    ✅     |
+| < 1.0   |    ❌     |
 
 ## Reporting a Vulnerability
+
 Security is a top priority for this Custom Action. If you identify a potential security vulnerability:
 
 1. **DO NOT** open a public issue.
