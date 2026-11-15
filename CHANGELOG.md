@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/gacc94/06-custom-action-ts/compare/v1.0.2...v1.0.3) (2026-11-15)
+
+
+### 📦 Build System
+
+* **deps:** bump googleapis/release-please-action from 4 to 5 ([#8](https://github.com/gacc94/06-custom-action-ts/issues/8)) ([8292747](https://github.com/gacc94/06-custom-action-ts/commit/8292747371090409bb1af1d31bcde743e4a6fb5e))
+
 ## [1.0.2](https://github.com/gacc94/06-custom-action-ts/compare/v1.0.1...v1.0.2) (2026-11-15)
 
 
