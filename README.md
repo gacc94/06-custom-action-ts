@@ -40,7 +40,7 @@ An enterprise-grade Custom Action for **GitHub Actions** built with **TypeScript
 
 ### 1. Complete Workflow (From Another Repository)
 
-Create `.github/workflows/greeter.yml` in any repository to invoke this action remotely:
+Create `.github/workflows/greeter.yml` in any repository to invoke the released Action using the floating major version tag (`@v1`):
 
 ```yaml
 name: 🚀 Custom Greeter Workflow
@@ -69,7 +69,7 @@ jobs:
         steps:
             - name: 🚀 Invoke Custom Greeter Action
               id: greeter
-              uses: gacc94/06-custom-action-ts@main
+              uses: gacc94/06-custom-action-ts@v1
               with:
                   username: ${{ inputs.username || github.actor }}
                   role: ${{ inputs.role || 'DevOps Engineer' }}
@@ -83,7 +83,23 @@ jobs:
                   echo "Timestamp: ${ACTION_TIMESTAMP}"
 ```
 
-> **Production Recommendation:** Pin `uses:` to an immutable release tag (e.g., `gacc94/06-custom-action-ts@v1`) or a full commit SHA instead of `@main` for supply-chain immutability. Notice also that remote invocation does **not** require `actions/checkout` unless your own downstream steps need the repository source.
+> **Note:** External workflows do **not** need `actions/checkout` unless downstream steps in that workflow need the caller repository's source files.
+
+#### Version Pinning Options
+
+| Strategy                | Example Reference                                                     | Behavior                                                                   |
+| :---------------------- | :-------------------------------------------------------------------- | :------------------------------------------------------------------------- |
+| **Major Tag (Default)** | `gacc94/06-custom-action-ts@v1`                                       | Tracks the latest backwards-compatible `1.x.y` release automatically       |
+| **Exact SemVer Tag**    | `gacc94/06-custom-action-ts@v1.0.0`                                   | Pins strictly to a single published release ([CHANGELOG.md](CHANGELOG.md)) |
+| **Full Commit SHA**     | `gacc94/06-custom-action-ts@c3d545eb811452958889c6e4b67142527fc876c2` | Maximum supply-chain immutability (recommended for strict environments)    |
+
+#### Version Pinning Options
+
+| Strategy                | Example Reference                                                     | Behavior                                                                   |
+| :---------------------- | :-------------------------------------------------------------------- | :------------------------------------------------------------------------- |
+| **Major Tag (Default)** | `gacc94/06-custom-action-ts@v1`                                       | Tracks the latest backwards-compatible `1.x.y` release automatically       |
+| **Exact SemVer Tag**    | `gacc94/06-custom-action-ts@v1.0.0`                                   | Pins strictly to a single published release ([CHANGELOG.md](CHANGELOG.md)) |
+| **Full Commit SHA**     | `gacc94/06-custom-action-ts@c3d545eb811452958889c6e4b67142527fc876c2` | Maximum supply-chain immutability (recommended for strict environments)    |
 
 ### 2. Local Invocation (Inside This Repository)
 
