@@ -18,7 +18,6 @@
         "commitlint": "commitlint --edit",
         "test": "vitest run",
         "test:coverage": "vitest run --coverage",
-        "build:ncc": "ncc build src/index.ts -o dist --source-map --license licenses.txt",
         "build:esbuild": "esbuild src/index.ts --bundle --platform=node --target=node22 --outfile=dist/index.js --sourcemap",
         "build": "pnpm run clean && pnpm run build:esbuild"
     },
@@ -32,7 +31,6 @@
         "@commitlint/types": "21.2.3",
         "@eslint/js": "10.0.1",
         "@types/node": "26.6.6",
-        "@vercel/ncc": "0.45.0",
         "@vitest/coverage-v8": "5.1.0",
         "@vitest/eslint-plugin": "1.6.28",
         "esbuild": "0.28.2",
