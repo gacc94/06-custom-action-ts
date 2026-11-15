@@ -21,7 +21,7 @@ jobs:
         steps:
             - name: 🚀 Run Release Please
               id: release
-              uses: googleapis/release-please-action@v4
+              uses: googleapis/release-please-action@v5
               with:
                   # Prefer a maintainer PAT so Release Please PRs/tags run CI automatically without approval prompts
                   token: ${{ secrets.RELEASE_PLEASE_TOKEN || github.token }}
