@@ -1,6 +1,6 @@
 {
     "name": "custom-action-ts",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Enterprise-grade GitHub Action built with Node.js, TypeScript, and pnpm",
     "main": "dist/index.js",
     "engines": {
