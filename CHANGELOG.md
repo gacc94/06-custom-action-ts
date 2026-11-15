@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.2](https://github.com/gacc94/06-custom-action-ts/compare/v1.0.1...v1.0.2) (2026-11-15)
+
+
+### 🐛 Bug Fixes
+
+* 🐛 remove role default from action.yml so legacy rol alias works ([247880f](https://github.com/gacc94/06-custom-action-ts/commit/247880f25d4cd9dbf9654f2838b8dad34c75871c))
+
+
+### 📝 Documentation
+
+* 📝 remove duplicate Version Pinning Options section in README ([cfa0505](https://github.com/gacc94/06-custom-action-ts/commit/cfa0505cd3ff7799fa7a74559a3c0503f626541f))
+
 ## [1.0.1](https://github.com/gacc94/06-custom-action-ts/compare/v1.0.0...v1.0.1) (2026-11-15)
 
 
