@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { escapeHtml, generateResultMessage } from './greeter.js';
+import { escapeHtml, generateResultMessage } from './greeter';
 
 describe('Greeter Domain Logic', () => {
     it('correctly generates the formatted result message with the provided parameters', () => {

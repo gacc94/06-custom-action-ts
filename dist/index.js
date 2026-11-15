@@ -1,3 +1,4 @@
+"use strict";
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -24566,7 +24567,7 @@ async function run() {
     const ref = context2.ref ?? "refs/heads/main";
     const fullSha = context2.sha ?? "0000000000000000000000000000000000000000";
     const sha = fullSha.substring(0, 7);
-    const serverUrl = process.env.GITHUB_SERVER_URL || "https://github.com";
+    const serverUrl = process.env.GITHUB_SERVER_URL ?? "https://github.com";
     const repoUrl = `${serverUrl}/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}`;
     const commitUrl = `${repoUrl}/commit/${encodeURIComponent(fullSha)}`;
     info(`[CUSTOM ACTION] Executing on repository: ${owner}/${repo} on branch ${ref} (commit ${sha})`);

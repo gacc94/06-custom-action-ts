@@ -1,7 +1,7 @@
 import { getInput, info, setFailed, setOutput, summary } from '@actions/core';
 import { context } from '@actions/github';
 
-import { escapeHtml, generateResultMessage } from './greeter.js';
+import { escapeHtml, generateResultMessage } from './greeter';
 
 async function run(): Promise<void> {
     try {
