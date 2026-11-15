@@ -96,3 +96,37 @@ jobs:
                     echo "::error::Unexpected 'result' format: ${ACTION_RESULT}"
                     exit 1
                   fi
+
+            - name: 🔄 Test local Custom Action with legacy aliases
+              id: test-legacy-aliases
+              uses: ./
+              with:
+                  usuario: 'Gustavo Legacy'
+                  rol: 'SRE'
+
+            - name: 📋 Validate legacy alias outputs
+              env:
+                  LEGACY_RESULT: ${{ steps.test-legacy-aliases.outputs.result }}
+              run: |
+                  echo "Legacy alias result: ${LEGACY_RESULT}"
+                  if [[ "${LEGACY_RESULT}" != *"Gustavo Legacy (SRE)"* ]]; then
+                    echo "::error::Legacy alias fallback failed: ${LEGACY_RESULT}"
+                    exit 1
+                  fi
+
+            - name: 🚨 Test controlled failure when username is missing
+              id: test-missing-username
+              continue-on-error: true
+              uses: ./
+              with:
+                  role: 'SRE'
+
+            - name: 🛡️ Assert controlled failure outcome
+              env:
+                  FAILURE_OUTCOME: ${{ steps.test-missing-username.outcome }}
+              run: |
+                  echo "Controlled failure step outcome: ${FAILURE_OUTCOME}"
+                  if [ "${FAILURE_OUTCOME}" != "failure" ]; then
+                    echo "::error::Expected step outcome 'failure' when username is omitted, got '${FAILURE_OUTCOME}'."
+                    exit 1
+                  fi
