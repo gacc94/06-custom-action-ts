@@ -25,6 +25,11 @@ function normalizeEmoji(value: string): string {
     return value.replace(/\uFE0F/g, '');
 }
 
+/**
+ * Scopes emitted by Dependabot (`deps` and `deps-dev`) when configured with `include: 'scope'`.
+ */
+const DEPENDABOT_SCOPES = new Set(['deps', 'deps-dev']);
+
 const config: UserConfig = {
     extends: ['@commitlint/config-conventional'],
     rules: {
@@ -34,9 +39,19 @@ const config: UserConfig = {
     plugins: [
         {
             rules: {
-                'subject-emoji-by-type': ({ type, subject }) => {
+                'subject-emoji-by-type': ({ type, scope, subject }) => {
                     if (!type || !subject) {
                         return [false, 'Commit message must follow "<type>(scope?): <emoji> <description>"'];
+                    }
+
+                    // Dependabot cannot insert an emoji after "<type>(<scope>): "
+                    if (
+                        (type === 'build' || type === 'chore') &&
+                        scope &&
+                        DEPENDABOT_SCOPES.has(scope) &&
+                        subject.startsWith('bump ')
+                    ) {
+                        return [true];
                     }
 
                     const expectedEmoji = TYPE_EMOJI_MAP[type];
