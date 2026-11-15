@@ -93,14 +93,6 @@ jobs:
 | **Exact SemVer Tag**    | `gacc94/06-custom-action-ts@v1.0.0`                                   | Pins strictly to a single published release ([CHANGELOG.md](CHANGELOG.md)) |
 | **Full Commit SHA**     | `gacc94/06-custom-action-ts@c3d545eb811452958889c6e4b67142527fc876c2` | Maximum supply-chain immutability (recommended for strict environments)    |
 
-#### Version Pinning Options
-
-| Strategy                | Example Reference                                                     | Behavior                                                                   |
-| :---------------------- | :-------------------------------------------------------------------- | :------------------------------------------------------------------------- |
-| **Major Tag (Default)** | `gacc94/06-custom-action-ts@v1`                                       | Tracks the latest backwards-compatible `1.x.y` release automatically       |
-| **Exact SemVer Tag**    | `gacc94/06-custom-action-ts@v1.0.0`                                   | Pins strictly to a single published release ([CHANGELOG.md](CHANGELOG.md)) |
-| **Full Commit SHA**     | `gacc94/06-custom-action-ts@c3d545eb811452958889c6e4b67142527fc876c2` | Maximum supply-chain immutability (recommended for strict environments)    |
-
 ### 2. Local Invocation (Inside This Repository)
 
 When testing or running the action within this same repository (as configured in [.github/workflows/test-action.yml](.github/workflows/test-action.yml)), you **must** run `actions/checkout` before `uses: ./` so the runner has access to `action.yml` and `dist/index.js`:
