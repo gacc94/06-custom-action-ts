@@ -14,9 +14,8 @@ inputs:
         description: 'Legacy alias for username'
         required: false
     role:
-        description: 'Role or execution environment profile'
+        description: 'Role or execution environment profile (defaults to DevOps Engineer)'
         required: false
-        default: 'DevOps Engineer'
     rol:
         description: 'Legacy alias for role'
         required: false
