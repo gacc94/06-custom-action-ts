@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/gacc94/06-custom-action-ts/compare/v1.0.0...v1.0.1) (2026-11-15)
+
+
+### 📝 Documentation
+
+* 📝 update README workflow usage to reference v1 tag ([c6e6ded](https://github.com/gacc94/06-custom-action-ts/commit/c6e6ded2d8aee58e624b995827885fa0233d0b2f))
+
 ## 1.0.0 (2026-11-15)
 
 
