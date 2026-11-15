@@ -1,0 +1,30 @@
+# Changelog
+
+## 1.0.0 (2026-11-15)
+
+
+### ✨ Features
+
+* ✨ enhance GitHub Actions step summary visual report ([7f36251](https://github.com/gacc94/06-custom-action-ts/commit/7f362516ae3fb51e9c2c47d0c294c1bc727d3726))
+* initialize enterprise-grade custom GitHub Action with TypeScript and pnpm ([6f7a5d0](https://github.com/gacc94/06-custom-action-ts/commit/6f7a5d031efe90bbf26a68b14534338b005af8fb))
+* **test:** add lcov, cobertura, and json-summary coverage reporters ([88b9153](https://github.com/gacc94/06-custom-action-ts/commit/88b91535b8d8476999fd78346a7eb6de1c5220c3))
+
+
+### ♻️ Code Refactoring
+
+* ♻️ switch to Bundler resolution and shared tsconfig base ([528ccb9](https://github.com/gacc94/06-custom-action-ts/commit/528ccb9b4b953aa70b53dbaa73680b81bc0a451f))
+
+
+### 📝 Documentation
+
+* 📝 document remote and local workflow usage in README ([1d703e2](https://github.com/gacc94/06-custom-action-ts/commit/1d703e270c86aa80225dae2908edc3ab73597d29))
+
+
+### 📦 Build System
+
+* 📦 remove unused @vercel/ncc dependency and build script ([8ee1692](https://github.com/gacc94/06-custom-action-ts/commit/8ee169279364b8ea6f82131223c2a84eb68ccc69))
+
+
+### 👷 CI/CD
+
+* 👷 configure Release Please tag automation and Marketplace branding ([9bc6bf8](https://github.com/gacc94/06-custom-action-ts/commit/9bc6bf8690a4fc33a3cfa6c386bfd72238ca7a8d))
