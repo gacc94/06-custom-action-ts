@@ -157,9 +157,14 @@ cat "$SUM"
 rm -f "$OUT" "$SUM"
 ```
 
-### Commit Convention
+### Commit Convention & Automated Releases
 
 Commits are validated automatically via **Lefthook** + **Commitlint** ([commitlint.config.ts](commitlint.config.ts)) and require both Conventional Commits format and the designated leading emoji per type (for example: `feat: ✨ add new feature`, `docs: 📝 update README workflow examples`).
+
+Releases and version tags are automated with **Release Please** ([.github/workflows/release.yml](.github/workflows/release.yml)):
+
+- Pushing Conventional Commits to `main` opens or updates a **Release PR** that bumps `package.json` and updates `CHANGELOG.md`.
+- Merging the Release PR (**Squash and merge** recommended) publishes the exact SemVer release/tag (e.g., `v1.0.0`) and automatically moves the floating major tag (`v1`) to that commit.
 
 ---
 

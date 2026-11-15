@@ -2,6 +2,10 @@ name: 'Custom TypeScript Greeter'
 description: 'Enterprise-grade Custom Action built with TypeScript and Node.js using @actions/core'
 author: 'Gustavo Caqui'
 
+branding:
+    icon: 'terminal'
+    color: 'blue'
+
 inputs:
     username:
         description: 'Name of the user triggering the pipeline'

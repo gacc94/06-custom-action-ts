@@ -1,0 +1,46 @@
+name: 🚀 Release & Tag Sync
+
+on:
+    push:
+        branches: [main]
+
+permissions:
+    contents: write
+    pull-requests: write
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: false
+
+jobs:
+    release-please:
+        name: 🏷️ Release Please & Floating Major Tag
+        runs-on: ubuntu-latest
+        timeout-minutes: 10
+
+        steps:
+            - name: 🚀 Run Release Please
+              id: release
+              uses: googleapis/release-please-action@v4
+              with:
+                  config-file: release-please-config.json
+                  manifest-file: .release-please-manifest.json
+
+            - name: 📥 Checkout release commit
+              if: ${{ steps.release.outputs.release_created == 'true' }}
+              uses: actions/checkout@v7
+              with:
+                  ref: ${{ steps.release.outputs.sha }}
+                  fetch-depth: 0
+
+            - name: 🏷️ Update floating major version tag
+              if: ${{ steps.release.outputs.release_created == 'true' }}
+              env:
+                  MAJOR_TAG: v${{ steps.release.outputs.major }}
+                  RELEASE_SHA: ${{ steps.release.outputs.sha }}
+                  RELEASE_TAG: ${{ steps.release.outputs.tag_name }}
+              run: |
+                  git config user.name "github-actions[bot]"
+                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                  git tag -fa "${MAJOR_TAG}" "${RELEASE_SHA}" -m "chore: 🔧 update floating tag ${MAJOR_TAG} to ${RELEASE_TAG}"
+                  git push origin "refs/tags/${MAJOR_TAG}" --force
